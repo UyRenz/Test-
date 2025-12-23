@@ -1,120 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Mensajes Bonitos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+  </head>
 
-<body class="p-4">
-
+  <body class="p-4">
     <div class="container">
+      <h2 class="mb-4 text-center">Mensajes Bonitos de Cumpleaños 💌</h2>
 
-        <h2 class="mb-4 text-center">Mensajes Bonitos de Cumpleaños 💌</h2>
+      <!-- FORMULARIO PARA ESCRIBIR -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Escribe tu mensaje ✍️</h5>
 
-        <!-- FORMULARIO PARA ESCRIBIR -->
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Escribe tu mensaje ✍️</h5>
-
-                <form id="formMensaje">
-
-                    <div class="mb-3">
-                        <label class="form-label">Tu nombre</label>
-                        <input id="nombre" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Tu mensaje</label>
-                        <textarea id="mensaje" class="form-control" rows="4" required></textarea>
-                    </div>
-
-                    <button class="btn btn-success" type="submit">
-                        Guardar mensaje
-                    </button>
-
-                </form>
+          <form id="formMensaje">
+            <div class="mb-3">
+              <label class="form-label">Tu nombre</label>
+              <input id="nombre" type="text" class="form-control" required />
             </div>
+
+            <div class="mb-3">
+              <label class="form-label">Tu mensaje</label>
+              <textarea
+                id="mensaje"
+                class="form-control"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <button class="btn btn-success" type="submit">
+              Guardar mensaje
+            </button>
+          </form>
         </div>
-        <button class="btn btn-danger mb-4" id="resetMensajes">
-            Borrar todos los mensajes
-        </button>
-        <!-- LISTA DE MENSAJES -->
-        <h4 class="mb-3">📬 Mensajes enviados</h4>
-        <div id="listaMensajes" class="row g-3"></div>
-
-    </div>
-    <script>
-        document.getElementById('resetMensajes').addEventListener('click', function () {
-            const codigo = prompt("Ingresa el código para borrar los mensajes:");
-
-            if (codigo === "997") {
-                localStorage.removeItem('mensajesCumple'); // borra todos los mensajes
-                cargarMensajes(); // actualiza la lista
-                alert("Todos los mensajes han sido borrados ✅");
-            } else if (codigo !== null) {
-                alert("Código incorrecto ❌");
-            }
-            // Si cancelan el prompt, no hace nada
-        });
-    </script>
-    <script>
-        // cargar mensajes guardados
-        function cargarMensajes() {
-            const lista = document.getElementById("listaMensajes");
-            lista.innerHTML = "";
-
-            const mensajes = JSON.parse(localStorage.getItem("mensajesCumple")) || [];
-
-            // array de emojis
-            const emojis = ["🎉", "🎂", "🎁", "🥳", "💖", "✨", "🍰", "🎈", "🌟", "❤️"];
-
-            mensajes.forEach(m => {
-                const card = document.createElement("div");
-                card.className = "col-md-4";
-
-                // seleccionar un emoji aleatorio
-                const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
-
-                card.innerHTML = `
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">${emojiAleatorio} ${m.nombre}</h5>
-        <p class="card-text">${m.mensaje}</p>
       </div>
+
+      <button class="btn btn-danger mb-4" id="resetMensajes">
+        Borrar todos los mensajes
+      </button>
+
+      <!-- LISTA DE MENSAJES -->
+      <h4 class="mb-3">📬 Mensajes enviados</h4>
+      <div id="listaMensajes" class="row g-3"></div>
     </div>
-  `;
 
-                lista.appendChild(card);
-            });
-        }
+    <!-- 🔥 Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
-        // guardar nuevo mensaje
-        document.getElementById('formMensaje').addEventListener('submit', function (e) {
-            e.preventDefault();
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxecz50StuiO64Qeh3hsM66JW0FAmy6GI",
+        authDomain: "mensajes-cumple-51940.firebaseapp.com",
+        projectId: "mensajes-cumple-51940",
+        storageBucket: "mensajes-cumple-51940.firebasestorage.app",
+        messagingSenderId: "680907658860",
+        appId: "1:680907658860:web:1cd28e0ff2aaaf98d2ea49"
+      };
 
-            const nombre = document.getElementById('nombre').value;
-            const mensaje = document.getElementById('mensaje').value;
+      // Inicializar Firebase
+      const app = firebase.initializeApp(firebaseConfig);
 
-            const nuevoMensaje = { nombre, mensaje };
-
-            let mensajes = JSON.parse(localStorage.getItem('mensajesCumple')) || [];
-            mensajes.push(nuevoMensaje);
-
-            localStorage.setItem('mensajesCumple', JSON.stringify(mensajes));
-
-            // limpiar formulario
-            document.getElementById('formMensaje').reset();
-
-            // volver a mostrar mensajes
-            cargarMensajes();
-        });
-
-        // mostrar mensajes al cargar la página
-        cargarMensajes();
+      // Inicializar Firestore
+      const db = firebase.firestore();
     </script>
 
-</body>
+    <!-- 🗑️ BORRAR MENSAJES -->
+    <script>
+      document
+        .getElementById("resetMensajes")
+        .addEventListener("click", function () {
+          const codigo = prompt("Ingresa el código para borrar los mensajes:");
 
+          if (codigo === "997") {
+            db.collection("mensajes")
+              .get()
+              .then((snapshot) => {
+                snapshot.forEach((doc) => doc.ref.delete());
+              })
+              .then(() => {
+                alert("Todos los mensajes han sido borrados ✅");
+              });
+          } else if (codigo !== null) {
+            alert("Código incorrecto ❌");
+          }
+        });
+    </script>
+
+    <!-- 📬 CARGAR Y GUARDAR MENSAJES -->
+    <script>
+      function cargarMensajes() {
+        const lista = document.getElementById("listaMensajes");
+        lista.innerHTML = "";
+
+        const emojis = [
+          "🎉",
+          "🎂",
+          "🎁",
+          "🥳",
+          "💖",
+          "✨",
+          "🍰",
+          "🎈",
+          "🌟",
+          "❤️",
+        ];
+
+        db.collection("mensajes")
+          .orderBy("fecha", "desc")
+          .onSnapshot((snapshot) => {
+            lista.innerHTML = "";
+            snapshot.forEach((doc) => {
+              const m = doc.data();
+              const emojiAleatorio =
+                emojis[Math.floor(Math.random() * emojis.length)];
+
+              const card = document.createElement("div");
+              card.className = "col-md-4";
+
+              card.innerHTML = `
+                <div class="card shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title">${emojiAleatorio} ${m.nombre}</h5>
+                    <p class="card-text">${m.mensaje}</p>
+                  </div>
+                </div>
+              `;
+
+              lista.appendChild(card);
+            });
+          });
+      }
+
+      document
+        .getElementById("formMensaje")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const nombre = document.getElementById("nombre").value;
+          const mensaje = document.getElementById("mensaje").value;
+
+          db.collection("mensajes").add({
+            nombre,
+            mensaje,
+            fecha: Date.now(),
+          });
+
+          document.getElementById("formMensaje").reset();
+        });
+
+      cargarMensajes();
+    </script>
+  </body>
 </html>
