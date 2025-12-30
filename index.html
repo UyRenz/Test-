@@ -1,83 +1,285 @@
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
 
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PD CR</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <meta name="theme-color" content="#712cf9" />
+  <title>Cumpleañeros del Mes | Power Design CR</title>
+  <meta name="description" content="Portal principal para redirigir a las páginas de mensajes de cumpleaños." />
+
+  <!-- Fuente Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
   <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
+    /* ===================== Variables (Dark por defecto) ===================== */
+    :root{
+      --bg: #0f1221;
+      --bg-alt:#12162a;
+      --text:#e6e8f0;
+      --muted:#b6bbd1;
+      --brand:#ff6b6b;      /* tono festivo */
+      --brand-2:#ffd93d;    /* complemento alegre */
+      --border:#242a43;
+      --card:#181b31;
+      --btn-text:#111;      /* texto oscuro sobre gradiente claro */
     }
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
+    /* ===================== Tema Claro ===================== */
+    :root.light{
+      --bg: #ffffff;
+      --bg-alt:#f7f8fc;
+      --text:#1b1d29;
+      --muted:#566181;
+      --brand:#ff6b6b;
+      --brand-2:#ffd93d;
+      --border:#e2e6f0;
+      --card:#ffffff;
+      --btn-text:#111;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .container{width:min(1100px,92%);margin-inline:auto}
+
+    /* ===================== Header ===================== */
+    .site-header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:color-mix(in oklab, var(--bg) 88%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .header-content{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+    .brand-logo{width:28px;height:28px}
+    .brand-name{font-weight:700}
+    .actions{display:flex;align-items:center;gap:10px}
+    .theme-toggle{
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .theme-toggle .sun{display:none}
+    :root.light .theme-toggle .sun{display:inline}
+    :root.light .theme-toggle .moon{display:none}
+
+    /* ===================== Hero ===================== */
+    .hero{padding:48px 0}
+    .hero h1{font-size:clamp(28px,5vw,44px);margin:0 0 8px;text-align:center}
+    .hero .lead{color:var(--muted);margin:0;text-align:center}
+
+    /* ===================== Sección / Listas centradas ===================== */
+    .section{padding:36px 0}
+    .section-header { text-align: center; }
+    .section-header h2{margin:0 0 6px}
+    .section-header p{color:var(--muted);margin:0 0 18px}
+
+    /* Centramos las tarjetas con Flex */
+    .grid.cards {
+      display: flex;            /* centrado robusto */
+      flex-wrap: wrap;          /* permite salto de línea */
+      gap: 18px;                /* separación entre tarjetas */
+      justify-content: center;  /* centrado horizontal */
+    }
+
+    .card{
+      width: 320px;             /* ancho consistente para centrar bien */
+      max-width: 100%;
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:16px;
+      padding:18px;
+      color:var(--text);
+      text-decoration:none;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover{transform:translateY(-4px); box-shadow:0 16px 30px rgba(0,0,0,.20); border-color:color-mix(in oklab, var(--brand) 40%, var(--border));}
+    .card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .avatar{
+      width:44px;height:44px;border-radius:50%;
+      background:color-mix(in oklab, var(--brand) 30%, var(--bg-alt));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text);
+    }
+    .name{font-weight:700}
+    .date{color:var(--muted);font-size:14px}
+    .msg{color:var(--muted);margin:8px 0 14px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      border-radius:12px;padding:10px 14px;font-weight:600;
+      text-decoration:none;cursor:pointer;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:var(--btn-text);
+    }
+    .btn.primary:active{transform:translateY(1px)}
+
+    /* ===================== Contacto simple ===================== */
+    .contact{padding:24px 0}
+    .contact p{color:var(--muted); text-align:center;}
+
+    /* ===================== Footer ===================== */
+    .site-footer{border-top:1px solid var(--border); background:var(--bg-alt)}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+    .footer-brand{display:flex;align-items:center;gap:10px}
+    .footer-copy{color:var(--muted)}
+
+    /* ===================== Responsive ===================== */
+    @media (max-width: 900px) {
+      .footer-inner { flex-direction:column; gap:10px; text-align:center; }
     }
   </style>
 </head>
-
 <body>
-  <main>
-    <div class="container py-4">
-      <header class="pb-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center text-body-emphasis text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img">
-            <title>Bootstrap</title>
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"
-              fill="currentColor"></path>
-          </svg>
-          <span class="fs-4">Costa Rica</span>
-        </a>
-      </header>
-      <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-        <div class="container-fluid py-5">
-          <h1 class="display-5 fw-bold">Cumpleañeros del mes</h1>
-          <p class="col-md-8 fs-4">
-            Queremos felicitar a los cumpleañeros del mes de noviembre, que la pasen genial!! :)
-          </p>
-          <a href="https://www.youtube.com/watch?v=MP1G8wnLpSM&list=RDMP1G8wnLpSM&start_radio=1" target="_blank" class="btn btn-primary btn-lg" role="button">
-            Video
-          </a>
-        </div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-content">
+      <a href="#" class="brand">
+        <!-- Logo simple -->
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="#ff6b6b"></circle>
+          <circle cx="12" cy="12" r="6" fill="#ffd93d"></circle>
+        </svg>
+        <span class="brand-name">Power Design CR</span>
+      </a>
+      <div class="actions">
+        <button class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <span class="sun">☀️</span>
+          <span class="moon">🌙</span>
+        </button>
       </div>
-      <div class="row align-items-md-stretch">
-        <div class="col-md-6">
-          <div class="h-100 p-5 text-bg-dark rounded-3">
-            <h2>Felicidades!!</h2>
-            <img src="https://lamenteesmaravillosa.com/wp-content/uploads/2014/10/soplar-tarta-de-cumpleanos-1.jpg"
-              alt="Descripción" class="img-fluid mb-3">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-            <h2>Cumpleañeros mes Noviembre:</h2>
-            <p>➨ Joshua</p>
-            <p>➨ Naomi</p>
-            <p>➨ Heiner</p>
-            <p>➨ Ronald</p>
-            <p>➨ Luis</p>
-            <button class="btn btn-outline-secondary" type="button" onclick="window.open('mensajes.html', '_blank');">
-              Escribir mensaje bonito acá
-            </button>
-          </div>
-        </div>
-      </div>
-      <footer class="pt-3 mt-4 text-body-secondary border-top">
-        &copy; Nov, 2025
-      </footer>
     </div>
-  </main>
+  </header>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Cumpleañeros del mes</h1>
+      <p class="lead">Celebremos juntos a quienes cumplen años. Deja tu mensaje a cada cumpleañero del mes para que pueda leerlo.</p>
+    </div>
+  </section>
+
+  <!-- Tarjetas centradas -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lista</h2>
+        <p>Haz clic en “Escribir mensaje” para ir a su página.</p>
+      </div>
+
+      <div class="grid cards">
+        <!-- 🎯 Reemplaza href por la URL final de cada página de mensaje -->
+        <a class="card" href="mensajes/DavidAlonso.html">
+          <div class="card-top">
+            <div class="avatar">DC</div>
+            <div>
+              <div class="name">David Alonso Campos</div>
+              <div class="date">Cumple: 01 Enero</div>
+            </div>
+          </div>
+          <span class="btn primary">✍️ Escribir mensaje</span>
+        </a>
+
+        <a class="card" href="mensajes/PriscilaVillegas.html">
+          <div class="card-top">
+            <div class="avatar">PV</div>
+            <div>
+              <div class="name">Priscila Villegas</div>
+              <div class="date">Cumple: 05 Enero</div>
+            </div>
+          </div>
+          <span class="btn primary">✍️ Escribir mensaje</span>
+        </a>
+
+        <a class="card" href="mensajes/SimonAngulo.html">
+          <div class="card-top">
+            <div class="avatar">SA</div>
+            <div>
+              <div class="name">Simón Angulo</div>
+              <div class="date">Cumple: 14 Enero</div>
+            </div>
+          </div>
+          <span class="btn primary">✍️ Escribir mensaje</span>
+        </a>
+
+        <a class="card" href="mensajes/GabrielVargas.html">
+          <div class="card-top">
+            <div class="avatar">GV</div>
+            <div>
+              <div class="name">Gabriel Vargas</div>
+              <div class="date">Cumple: 18 Enero</div>
+            </div>
+          </div>
+          <span class="btn primary">✍️ Escribir mensaje</span>
+        </a>
+
+        <a class="card" href="mensajes/SteveRichards.html">
+          <div class="card-top">
+            <div class="avatar">SR</div>
+            <div>
+              <div class="name">Steve Richards</div>
+              <div class="date">Cumple: 19 Enero</div>
+            </div>
+          </div>
+          <span class="btn primary">✍️ Escribir mensaje</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="contact">
+    <div class="container">
+      <p>Para cualquier ayuda contactar a <strong>Renzo Bourrouet</strong>.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="#ff6b6b"></circle>
+          <circle cx="12" cy="12" r="6" fill="#ffd93d"></circle>
+        </svg>
+        <span>Power Design CR</span>
+      </div>
+      <div class="footer-copy">© <span id="year"></span> Power Design CR</div>
+    </div>
+  </footer>
+
+  <script>
+    // ===================== Tema claro/oscuro con persistencia =====================
+    (function(){
+      const root = document.documentElement;
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') root.classList.add('light');
+
+      const toggle = document.querySelector('.theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          root.classList.toggle('light');
+          localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+        });
+      }
+    })();
+
+    // Año dinámico en footer
+    (function(){
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+  </script>
 </body>
-
 </html>
