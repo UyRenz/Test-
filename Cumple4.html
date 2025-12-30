@@ -1,1 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mensajes Bonitos</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <style>
+      body {
+        background-image: url("https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #333;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        backdrop-filter: saturate(140%) blur(8px);
+        background: rgba(255, 255, 255, 0.85);
+        border-bottom: 1px solid #ddd;
+      }
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 0;
+        gap: 12px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .brand-logo {
+        width: 24px;
+        height: 24px;
+      }
+      .bg-print {
+        display: none;
+      }
+      .card,
+      .alert {
+        backdrop-filter: blur(4px);
+        background-color: rgba(255, 255, 255, 0.85) !important;
+      }
+      .titulo-brillante {
+        padding: 10px 20px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+        display: inline-block;
+      }
+      .subtitulo-brillante {
+        padding: 6px 14px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        display: inline-block;
+      }
+      #tab-borrar {
+        position: fixed;
+        top: 66px;
+        right: 10px;
+        background: rgba(255, 0, 0, 0.7);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        z-index: 9999;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #tab-borrar:hover {
+        width: auto;
+        height: auto;
+        padding: 8px 16px;
+        border-radius: 20px;
+      }
+      #tab-borrar span {
+        display: none;
+        margin-left: 6px;
+      }
+      #tab-borrar:hover span {
+        display: inline;
+      }
+      .portada-impresion {
+        display: none;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 12px;
+      }
+      .portada-impresion h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+      .portada-impresion p {
+        font-size: 18px;
+        color: #555;
+      }
+      .encabezado-impresion {
+        display: none;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(248, 249, 250, 0.85);
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .firma-final {
+        display: none;
+        text-align: center;
+        font-style: italic;
+        color: #666;
+        font-size: 12pt;
+      }
+      .card + .card {
+        border-top: 2px dashed #ccc;
+        margin-top: 20px;
+        padding-top: 20px;
+      }
+      @page {
+        margin: 20mm;
+      }
+      @media print {
+        .bg-print {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: -1;
+          background-image: url("https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          opacity: 0.18;
+        }
+        html,
+        body {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        body {
+          background: none !important;
+          background-color: transparent !important;
+          margin: 0 !important;
+        }
+        .container {
+          padding: 0 !important;
+          max-width: 100% !important;
+        }
+        #tab-borrar,
+        button,
+        .alert,
+        .titulo-brillante,
+        #formCard,
+        .subtitulo-brillante,
+        .site-header {
+          display: none !important;
+        }
+        .portada-impresion {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: calc(100vh - 40mm);
+          padding-top: 10mm;
+          margin: 0;
+          page-break-after: always;
+        }
+        .encabezado-impresion {
+          display: block !important;
+          margin: 0 0 10mm 0;
+          padding: 10mm 0 6mm 0;
+          border-radius: 0;
+          box-shadow: none;
+          background: transparent;
+        }
+        #listaMensajes {
+          display: block !important;
+          padding: 0;
+        }
+        #listaMensajes .col-md-4 {
+          width: 100% !important;
+          margin-bottom: 20px;
+        }
+        .card {
+          page-break-inside: avoid !important;
+          border: 1px solid #ccc !important;
+          background: rgba(253, 253, 253, 0.95) !important;
+        }
+        .firma-final {
+          display: block !important;
+          margin-top: 12mm;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="p-0">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container header-content">
+        <a href="index.html" class="brand" aria-label="Ir al inicio">
+          <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="#ff6b6b"></circle>
+            <circle cx="12" cy="12" r="6" fill="#ffd93d"></circle>
+          </svg>
+          <span class="brand-name">Power Design CR</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Fondo impresión -->
+    <div class="bg-print" aria-hidden="true"></div>
+
+    <div class="container py-4">
+      <div class="portada-impresion">
+        <h1>🎉 Recuerdos del Equipo 🎂</h1>
+        <p>
+          A continuación encontrarás los mensajes de tus compañeros, escritos
+          para celebrar tu cumpleaños con buenos deseos, motivación y alegría.
+          Son palabras que reflejan el aprecio y el compañerismo de quienes
+          forman parte de tu equipo..
+        </p>
+      </div>
+
+      <div class="encabezado-impresion">
+        <h1>📬 Mensajes enviados</h1>
+      </div>
+
+      <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
+
+      <div class="text-center">
+        <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
+      </div>
+
+      <div class="text-center mb-4">
+        <button
+          id="btnImprimir"
+          class="btn btn-primary"
+          onclick="window.print()"
+        >
+          🖨️ Imprimir mensajes
+        </button>
+      </div>
+
+      <div
+        class="alert alert-danger p-4 shadow-sm"
+        style="border-left: 6px solid #d9534f"
+      >
+        <h4 class="mb-2">📌 Mensaje Especial para Gabriel Vargas</h4>
+        <p>
+          Comparte un mensaje que inspire, motive o saque una sonrisa en este
+          día especial. ¡Celebremos juntos! 🎂🎈🎉
+        </p>
+      </div>
+
+      <!-- Formulario -->
+      <div id="formCard" class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Escribe tu mensaje ✍️</h5>
+          <form id="formMensaje" autocomplete="off">
+            <div class="mb-3">
+              <label class="form-label">Tu nombre</label>
+              <input id="nombre" type="text" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tu mensaje</label>
+              <textarea
+                id="mensaje"
+                class="form-control"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button id="btnGuardar" class="btn btn-success" type="submit">
+              <span
+                class="spinner-border spinner-border-sm me-2 d-none"
+                id="spinnerGuardar"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Guardar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <h4 class="mb-3 subtitulo-brillante mt-4">📬 Mensajes enviados</h4>
+      <div id="listaMensajes" class="row g-3"></div>
+
+      <div class="firma-final">
+        💖 Gracias por celebrar con nosotros. ¡Que vengan muchos más cumpleaños
+        felices! 🎉
+      </div>
+    </div>
+
+    <!-- Modal borrar -->
+    <div
+      class="modal fade"
+      id="modalBorrar"
+      tabindex="-1"
+      aria-labelledby="modalBorrarLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalBorrarLabel">
+              Borrar todos los mensajes
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="passwordBorrar" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="passwordBorrar"
+                placeholder="Ingresa la contraseña"
+              />
+            </div>
+            <div class="alert alert-warning">
+              <strong>Atención:</strong> Esta acción
+              <u>no se puede deshacer</u>. Se eliminarán
+              <strong>todos</strong> los mensajes.
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="confirmacionBorrar"
+              />
+              <label class="form-check-label" for="confirmacionBorrar"
+                >Confirmo que deseo borrar todos los mensajes.</label
+              >
+            </div>
+            <div
+              id="estadoBorrado"
+              class="mt-3 small text-muted"
+              style="display: none"
+            ></div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" id="btnBorrarNow" class="btn btn-danger">
+              Borrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firebase SDKs (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Bootstrap JS (modal) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- App -->
+    <script>
+      // ===== Firebase =====
+      const firebaseConfig = {
+        apiKey: "AIzaSyCrFOj8zhDRUaHucHlvf33zODy3FNZnb2o",
+        authDomain: "cumple4-32575.firebaseapp.com",
+        projectId: "cumple4-32575",
+        storageBucket: "cumple4-32575.firebasestorage.app", // ✅ SDK nuevo
+        messagingSenderId: "504430231540",
+        appId: "1:504430231540:web:e723ba5be810d52d2f03a1",
+      };
+
+      // Inicializar Firebase
+      try {
+        firebase.initializeApp(firebaseConfig);
+        console.log("[Firebase] App inicializada.");
+      } catch (e) {
+        console.error("[Firebase] Error inicializando la app:", e);
+      }
+
+      const db = firebase.firestore();
+
+      // ===== Listado en tiempo real =====
+      function cargarMensajes() {
+        const lista = document.getElementById("listaMensajes");
+        const emojis = [
+          "🎉",
+          "🎂",
+          "🎈",
+          "🥳",
+          "🎁",
+          "🎊",
+          "🍰",
+          "🧁",
+          "🍾",
+          "🥂",
+          "🎶",
+          "🎵",
+          "🎤",
+          "🎀",
+          "🎇",
+          "🎆",
+          "✨",
+          "🌟",
+          "⭐",
+          "💐",
+          "🌸",
+          "🎯",
+          "🎨",
+          "🎂",
+          "🎉",
+          "🥳",
+          "🎈",
+          "🎁",
+          "🍰",
+          "🧁",
+          "🎊",
+          "🎀",
+          "🎶",
+          "🎵",
+          "🥂",
+          "🍾",
+          "✨",
+          "🌟",
+          "💝",
+          "💖",
+          "😊",
+          "😄",
+          "😁",
+          "🥰",
+          "🎉",
+          "🎂",
+          "🎈",
+          "🎁",
+          "🎊",
+          "🍰",
+          "🧁",
+        ];
+
+        console.log(
+          "[Firestore] Suscribiendo a /mensajes (orderBy fecha desc)..."
+        );
+        db.collection("mensajes")
+          .orderBy("fecha", "desc")
+          .onSnapshot(
+            (snapshot) => {
+              console.log(
+                "[Firestore] Snapshot recibido. Docs:",
+                snapshot.size
+              );
+              lista.innerHTML = "";
+              snapshot.forEach((doc) => {
+                const m = doc.data();
+                const emojiAleatorio =
+                  emojis[Math.floor(Math.random() * emojis.length)];
+
+                const col = document.createElement("div");
+                col.className = "col-md-4";
+
+                const card = document.createElement("div");
+                card.className = "card shadow-sm";
+
+                const body = document.createElement("div");
+                body.className = "card-body";
+
+                const h5 = document.createElement("h5");
+                h5.className = "card-title";
+                h5.textContent = `${emojiAleatorio} ${m.nombre || ""}`;
+
+                const p = document.createElement("p");
+                p.className = "card-text";
+                p.textContent = m.mensaje || "";
+
+                body.appendChild(h5);
+                body.appendChild(p);
+                card.appendChild(body);
+                col.appendChild(card);
+                lista.appendChild(col);
+              });
+            },
+            (error) => {
+              console.error("[Firestore] Error en onSnapshot:", error);
+              alert(
+                "No se pudo suscribir a tiempo real. Revisa las reglas o la consola."
+              );
+            }
+          );
+      }
+
+      // ===== Guardar mensaje: usa timestamp del servidor =====
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("formMensaje");
+        const nombreInput = document.getElementById("nombre");
+        const mensajeInput = document.getElementById("mensaje");
+        const btnGuardar = document.getElementById("btnGuardar");
+        const spinnerGuardar = document.getElementById("spinnerGuardar");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (btnGuardar.disabled) return;
+
+          const nombre = nombreInput.value.trim();
+          const mensaje = mensajeInput.value.trim();
+          if (!nombre || !mensaje) return;
+
+          btnGuardar.disabled = true;
+          spinnerGuardar.classList.remove("d-none");
+
+          try {
+            console.log("[Firestore] Agregando documento a /mensajes...");
+            await db.collection("mensajes").add({
+              nombre,
+              mensaje,
+              fecha: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            console.log("[Firestore] Documento agregado correctamente.");
+
+            form.reset();
+            nombreInput.blur();
+            mensajeInput.blur();
+
+            const ok = document.createElement("div");
+            ok.className = "alert alert-success mt-3";
+            ok.textContent = "Mensaje guardado correctamente 🎉";
+            document.getElementById("formCard").appendChild(ok);
+            setTimeout(() => ok.remove(), 2500);
+          } catch (err) {
+            console.error("[Firestore] Error guardando mensaje:", err);
+            alert("Ocurrió un error guardando el mensaje (ver consola).");
+          } finally {
+            spinnerGuardar.classList.add("d-none");
+            btnGuardar.disabled = false;
+          }
+        });
+
+        // Arranque: cargar lista
+        cargarMensajes();
+      });
+
+      // ===== Borrar todos los mensajes (solo pruebas) =====
+      const PASSWORD_BORRADO = "997R";
+
+      async function borrarTodosLosMensajes() {
+        const estado = document.getElementById("estadoBorrado");
+        estado.style.display = "block";
+        estado.textContent = "Borrando mensajes...";
+
+        try {
+          const snapshot = await db.collection("mensajes").get();
+          if (snapshot.empty) {
+            estado.textContent = "No hay mensajes para borrar.";
+            return;
+          }
+
+          let batch = db.batch();
+          let count = 0;
+          let total = snapshot.size;
+
+          snapshot.forEach((doc) => {
+            batch.delete(doc.ref);
+            count++;
+            if (count >= 450) {
+              batch.commit();
+              batch = db.batch();
+              count = 0;
+            }
+          });
+
+          await batch.commit();
+          estado.textContent = `Listo. Se borraron ${total} mensajes.`;
+        } catch (err) {
+          console.error("[Firestore] Error borrando mensajes:", err);
+          if (err && err.code === "permission-denied") {
+            estado.innerHTML =
+              "Permiso denegado al borrar.<br><small>Revisa las reglas de Firestore o habilita <code>delete</code> temporalmente para pruebas.</small>";
+          } else {
+            estado.textContent = "Ocurrió un error al borrar los mensajes.";
+          }
+        }
+      }
+
+      const modalBorrar = new bootstrap.Modal(
+        document.getElementById("modalBorrar")
+      );
+      document.getElementById("tab-borrar").addEventListener("click", () => {
+        document.getElementById("passwordBorrar").value = "";
+        document.getElementById("confirmacionBorrar").checked = false;
+        const estado = document.getElementById("estadoBorrado");
+        estado.style.display = "none";
+        estado.textContent = "";
+        modalBorrar.show();
+      });
+
+      document
+        .getElementById("btnBorrarNow")
+        .addEventListener("click", async () => {
+          const pass = document.getElementById("passwordBorrar").value;
+          const confirmado =
+            document.getElementById("confirmacionBorrar").checked;
+
+          if (!pass) {
+            alert("Por favor ingresa la contraseña.");
+            return;
+          }
+          if (pass !== PASSWORD_BORRADO) {
+            alert("Contraseña incorrecta.");
+            return;
+          }
+          if (!confirmado) {
+            alert("Debes confirmar que deseas borrar todos los mensajes.");
+            return;
+          }
+
+          await borrarTodosLosMensajes();
+        });
+    </script>
+  </body>
+</html>
 
