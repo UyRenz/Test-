@@ -56,10 +56,10 @@
 
 <body class="p-0">
   
+
 <!-- Header -->
 <header class="site-header">
   <div class="container header-content">
-    <!-- Botón Home (icono + texto) -->
     <a href="index.html" class="brand" aria-label="Ir al inicio">
       <!-- Icono de casa (SVG) -->
       <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -71,15 +71,13 @@
   </div>
 </header>
 
-<!-- Estilos inline (puedes ponerlos en <head> o aquí mismo) -->
+<!-- Estilos inline (ponlo en el mismo archivo) -->
 <style>
-  /* Layout básico (ajusta según tu estructura) */
   .site-header {
     padding: 12px 16px;
-    border-bottom: 1px solid #e5e7eb; /* gris claro */
+    border-bottom: 1px solid #e5e7eb;
     background: #ffffff;
   }
-
   .container.header-content {
     display: flex;
     align-items: center;
@@ -88,39 +86,35 @@
     max-width: 1100px;
     margin: 0 auto;
   }
-
-  /* Botón Home */
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 8px;                 /* separación icono-texto */
+    gap: 8px;
     text-decoration: none;
-    color: #1f2937;           /* gris oscuro */
+    color: #1f2937; /* gris oscuro */
     font-weight: 600;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     line-height: 1;
     padding: 6px 10px;
-    border-radius: 8px;       /* forma de pill */
+    border-radius: 8px;
     transition: color .15s ease, background-color .15s ease, box-shadow .15s ease;
   }
-
   .brand-icon {
     width: 22px;
     height: 22px;
-    color: currentColor;      /* el SVG toma el color del texto */
+    color: currentColor; /* el SVG toma el color del texto */
     flex-shrink: 0;
   }
-
-  /* Interacción accesible */
   .brand:hover {
-    color: #0ea5e9;           /* azul */
-    background-color: #f0f9ff;/* azul muy claro */
+    color: #0ea5e9;             /* azul al hover */
+    background-color: #f0f9ff;  /* azul muy claro */
   }
   .brand:focus {
     outline: 2px solid #0ea5e9;
     outline-offset: 3px;
   }
 </style>
+
 
 
   <!-- Fondo impresión -->
