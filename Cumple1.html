@@ -57,8 +57,6 @@
 <body class="p-0">
   
 
-
-
 <header class="site-header">
   <div class="container header-content">
     <a href="index.html" class="brand" aria-label="Ir al inicio">
@@ -70,59 +68,6 @@
     </a>
   </div>
 </header>
-
-<style>
-  /* Layout básico del header (opcional, ajusta a tu sitio) */
-  .site-header {
-    padding: 12px 16px;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  .container.header-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* Enlace del brand (solo icono) */
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #1f2937; /* color base del icono (currentColor) */
-    padding: 6px;
-    border-radius: 8px;
-    transition: color .15s ease, background-color .15s ease;
-  }
-
-  /* SVG: toma el color del enlace y anima escala/sombra */
-  .brand-logo {
-    width: 24px;
-    height: 24px;
-    transition: transform .15s ease, filter .15s ease;
-    /* fill usa currentColor desde el <path>, no hace falta aquí */
-  }
-
-  /* Hover: resalta */
-  .brand:hover {
-    color: #0ea5e9;            /* cambia color del icono */
-    background-color: #f0f9ff; /* resalta el fondo */
-  }
-  .brand:hover .brand-logo {
-    transform: scale(1.08);
-    filter: drop-shadow(0 2px 4px rgba(14,165,233,.35));
-  }
-
-  /* Accesible: Focus visible con teclado */
-  .brand:focus {
-    outline: 2px solid #0ea5e9;
-    outline-offset: 3px;
-  }
-</style>
-
-
 
 
   <!-- Fondo impresión -->
