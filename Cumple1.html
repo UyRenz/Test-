@@ -56,6 +56,7 @@
 
 <body class="p-0">
   
+
 <header class="site-header">
   <div class="container header-content">
     <a href="index.html" class="brand" aria-label="Ir al inicio">
@@ -68,35 +69,36 @@
   </div>
 </header>
 
-<!-- Fondo impresión -->
-<div class="bg-print" aria-hidden="true"></div>
 
-<div class="container py-4">
-  <div class="portada-impresion">
-    <h1>🎉 Recuerdos del Equipo 🎂</h1>
-    <p>A continuación encontrarás los mensajes de tus compañeros, escritos para celebrar tu cumpleaños con buenos deseos, motivación y alegría. Son palabras que reflejan el aprecio y el compañerismo de quienes forman parte de tu equipo..</p>
-  </div>
+  <!-- Fondo impresión -->
+  <div class="bg-print" aria-hidden="true"></div>
 
-  <div class="encabezado-impresion">
-    <h1>📬 Mensajes enviados</h1>
-  </div>
+  <div class="container py-4">
+    <div class="portada-impresion">
+      <h1>🎉 Recuerdos del Equipo 🎂</h1>
+      <p>A continuación encontrarás los mensajes de tus compañeros, escritos para celebrar tu cumpleaños con buenos deseos, motivación y alegría. Son palabras que reflejan el aprecio y el compañerismo de quienes forman parte de tu equipo..</p>
+    </div>
 
-  <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
+    <div class="encabezado-impresion">
+      <h1>📬 Mensajes enviados</h1>
+    </div>
 
-  <div class="text-center">
-    <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
-  </div>
+    <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
 
-  <div class="text-center mb-4">
-    <!-- 🔧 FIX: botón sin onclick -->
-    <button id="btnImprimir" class="btn btn-primary">🖨️ Imprimir mensajes</button>
-  </div>
+    <div class="text-center">
+      <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
+    </div>
 
-  <div class="alert alert-danger p-4 shadow-sm" style="border-left: 6px solid #d9534f;">
-    <h4 class="mb-2">📌 Mensaje Especial para Bryan Sanchez</h4>
-    <p>Comparte un mensaje que inspire, motive o saque una sonrisa en este día especial. ¡Celebremos juntos! 🎂🎈🎉</p>
-  </div>
-      <!-- Formulario -->
+    <div class="text-center mb-4">
+      <button id="btnImprimir" class="btn btn-primary" onclick="window.print()">🖨️ Imprimir mensajes</button>
+    </div>
+
+    <div class="alert alert-danger p-4 shadow-sm" style="border-left: 6px solid #d9534f;">
+      <h4 class="mb-2">📌 Mensaje Especial para Bryan Sanchez</h4>
+      <p>Comparte un mensaje que inspire, motive o saque una sonrisa en este día especial. ¡Celebremos juntos! 🎂🎈🎉</p>
+    </div>
+
+    <!-- Formulario -->
     <div id="formCard" class="card mb-4 shadow-sm">
       <div class="card-body">
         <h5 class="card-title">Escribe tu mensaje ✍️</h5>
@@ -184,9 +186,6 @@
 
     const db = firebase.firestore();
 
-    /* 🔧 FIX: agregar bandera para saber cuándo Firestore terminó */
-    let mensajesListos = false;
-
     // ===== Listado en tiempo real =====
     function cargarMensajes() {
       const lista = document.getElementById("listaMensajes");
@@ -196,6 +195,7 @@
   "🎂", "🎉", "🥳", "🎈", "🎁", "🍰", "🧁", "🎊", "🎀", "🎶", "🎵", "🥂", "🍾", "✨", "🌟", "💝", "💖", "😊", "😄", "😁", "🥰",
   "🎉", "🎂", "🎈", "🎁", "🎊", "🍰", "🧁"
 ];
+
 
       console.log("[Firestore] Suscribiendo a /mensajes (orderBy fecha desc)...");
       db.collection("mensajes").orderBy("fecha", "desc").onSnapshot(
@@ -229,52 +229,6 @@
             col.appendChild(card);
             lista.appendChild(col);
           });
-
-          /* 🔧 FIX: marcar que los mensajes ya están cargados */
-          mensajesListos = true;
-        },
-        (error) => {
-          console.error("[Firestore] Error en onSnapshot:", error);
-          alert("No se pudo suscribir a tiempo real. Revisa las reglas o la consola.");
-        }
-      );
-    }
-          console.log("[Firestore] Suscribiendo a /mensajes (orderBy fecha desc)...");
-      db.collection("mensajes").orderBy("fecha", "desc").onSnapshot(
-        (snapshot) => {
-          console.log("[Firestore] Snapshot recibido. Docs:", snapshot.size);
-          lista.innerHTML = "";
-          snapshot.forEach(doc => {
-            const m = doc.data();
-            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
-
-            const col = document.createElement("div");
-            col.className = "col-md-4";
-
-            const card = document.createElement("div");
-            card.className = "card shadow-sm";
-
-            const body = document.createElement("div");
-            body.className = "card-body";
-
-            const h5 = document.createElement("h5");
-            h5.className = "card-title";
-            h5.textContent = `${emojiAleatorio} ${m.nombre || ""}`;
-
-            const p = document.createElement("p");
-            p.className = "card-text";
-            p.textContent = m.mensaje || "";
-
-            body.appendChild(h5);
-            body.appendChild(p);
-            card.appendChild(body);
-            col.appendChild(card);
-            lista.appendChild(col);
-          });
-
-          /* 🔧 FIX: marcar que los mensajes ya están cargados */
-          mensajesListos = true;
-
         },
         (error) => {
           console.error("[Firestore] Error en onSnapshot:", error);
@@ -344,7 +298,8 @@
       try {
         const snapshot = await db.collection('mensajes').get();
         if (snapshot.empty) { estado.textContent = 'No hay mensajes para borrar.'; return; }
-                let batch = db.batch();
+
+        let batch = db.batch();
         let count = 0;
         let total = snapshot.size;
 
