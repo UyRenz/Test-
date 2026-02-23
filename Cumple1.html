@@ -51,6 +51,35 @@
       .card { page-break-inside: avoid !important; border: 1px solid #ccc !important; background: rgba(253, 253, 253, 0.95) !important; }
       .firma-final { display: block !important; margin-top: 12mm; }
     }
+    /* ===== FIX IMPRESIÓN (AGREGADO) ===== */
+    @media print {
+
+      .col-md-4 {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      #listaMensajes .card {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      .bg-print {
+        z-index: -9999 !important;
+      }
+
+      html, body {
+        overflow: visible !important;
+        height: auto !important;
+      }
+
+      #listaMensajes {
+        display: block !important;
+        overflow: visible !important;
+      }
+    }
+
   </style>
 </head>
 
