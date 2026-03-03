@@ -96,6 +96,13 @@
 
     #tab-borrar span { display: none; margin-left: 6px; }
     #tab-borrar:hover span { display: inline; }
+
+    /* NUEVO: Ocultar botón de borrar en impresión */
+    @media print {
+      #tab-borrar {
+        display: none;
+      }
+    }
   </style>
 </head>
 
