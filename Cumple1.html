@@ -1,210 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mensajes Bonitos</title>
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-
-<style>
-  body {
-    background-image: url('https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #333;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  .site-header { position: sticky; top: 0; z-index: 999; backdrop-filter: saturate(140%) blur(8px); background: rgba(255,255,255,0.85); border-bottom: 1px solid #ddd; }
-  .header-content { display: flex; align-items: center; justify-content: flex-start; padding: 10px 0; gap: 12px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #333; font-weight: 700; font-size: 18px; }
-  .brand-logo { width: 24px; height: 24px; }
-  .bg-print { display: none; }
-  .card, .alert { backdrop-filter: blur(4px); background-color: rgba(255, 255, 255, 0.85) !important; }
-  .titulo-brillante { padding: 10px 20px; border-radius: 12px; background: rgba(255,255,255,0.65); backdrop-filter: blur(4px); box-shadow: 0 0 12px rgba(255,255,255,0.9); display: inline-block; }
-  .subtitulo-brillante { padding: 6px 14px; border-radius: 10px; background: rgba(255,255,255,0.65); backdrop-filter: blur(4px); box-shadow: 0 0 10px rgba(255,255,255,0.8); display: inline-block; }
-  #tab-borrar { position: fixed; top: 66px; right: 10px; background: rgba(255,0,0,0.7); color:white; padding:6px 10px; border-radius:50%; cursor:pointer; font-size:14px; font-weight:bold; transition: all 0.3s ease; z-index: 9999; width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
-  #tab-borrar:hover { width:auto; height:auto; padding:8px 16px; border-radius:20px; }
-  #tab-borrar span { display: none; margin-left:6px; }
-  #tab-borrar:hover span { display:inline; }
-  .portada-impresion { display: none; text-align:center; background: rgba(255,255,255,0.75); border-radius:12px; }
-  .portada-impresion h1 { font-size:40px; margin-bottom:10px; }
-  .portada-impresion p  { font-size:18px; color:#555; }
-  .encabezado-impresion { display: none; margin-bottom: 30px; padding:20px; background: rgba(248,249,250,0.85); border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center; }
-  .firma-final { display: none; text-align:center; font-style:italic; color:#666; font-size:12pt; }
-  .card + .card { border-top:2px dashed #ccc; margin-top:20px; padding-top:20px; }
-  @page { margin: 20mm; }
-  @media print {
-    .bg-print { display:block; position:fixed; top:0; left:0; right:0; bottom:0; z-index:-1; background-image: url('https://images.pexels.com/photos/1793037/pexels-photo-1793037.jpeg'); background-size: cover; background-position:center; background-repeat:no-repeat; opacity:0.18; }
-    html, body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    body { background:none !important; background-color:transparent !important; margin:0 !important; }
-    .container { padding:0 !important; max-width:100% !important; }
-    #tab-borrar, button, .alert, .titulo-brillante, #formCard, .subtitulo-brillante, .site-header { display:none !important; }
-    .portada-impresion { display:flex; flex-direction: column; align-items:center; justify-content:center; min-height: calc(100vh - 40mm); padding-top:10mm; margin:0; page-break-after: always; }
-    .encabezado-impresion { display:block !important; margin:0 0 10mm 0; padding:10mm 0 6mm 0; border-radius:0; box-shadow:none; background:transparent; }
-    #listaMensajes { display:flex !important; flex-direction:column !important; padding:0 !important; }
-    #listaMensajes .col-md-4 { width:100% !important; margin-bottom:15px !important; float:none !important; }
-    .card { page-break-inside: avoid !important; border:1px solid #ccc !important; background:#fff !important; }
-    .firma-final { display:block !important; margin-top:12mm; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <title>🎉 Mensajes de Cumpleaños 🎂</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #d83c3c;
+            text-shadow: 2px 2px #fff;
+        }
+        #chat {
+            border: 2px dashed #fff;
+            border-radius: 10px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: scroll;
+            margin: 20px auto;
+            width: 90%;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .mensaje {
+            padding: 8px 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .mine { background-color: #ffeb3b; text-align: right; margin-left: auto; }
+        .other { background-color: #ff9800; text-align: left; margin-right: auto; }
+        #form {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+        #name, #message {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #d83c3c;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { background-color: #ff5c5c; }
+    </style>
 </head>
-<body class="p-0">
+<body>
+    <h1>🎉 Deja tus buenos deseos 🎂</h1>
 
-<header class="site-header">
-  <div class="container header-content">
-    <a href="index.html" class="brand" aria-label="Ir al inicio">
-      <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M12 3l9 8-1.5 1.7L18 11.5V20a2 2 0 0 1-2 2h-3v-5H11v5H8a2 2 0 0 1-2-2v-8.5L4.5 12.7 3 11l9-8z"/>
-      </svg>
-    </a>
-  </div>
-</header>
+    <div id="chat"></div>
 
-<div class="bg-print" aria-hidden="true"></div>
-
-<div class="container py-4">
-  <div class="portada-impresion">
-    <h1>🎉 Recuerdos del Equipo 🎂</h1>
-    <p>A continuación encontrarás los mensajes de tus compañeros, escritos para celebrar tu cumpleaños con buenos deseos, motivación y alegría. Son palabras que reflejan el aprecio y el compañerismo de quienes forman parte de tu equipo.</p>
-  </div>
-
-  <div class="encabezado-impresion">
-    <h1>📬 Mensajes enviados</h1>
-  </div>
-
-  <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
-
-  <div class="text-center">
-    <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
-  </div>
-
-  <div class="text-center mb-4">
-    <button id="btnImprimir" class="btn btn-primary">🖨️ Imprimir mensajes</button>
-  </div>
-
-  <div class="alert alert-danger p-4 shadow-sm" style="border-left:6px solid #d9534f;">
-    <h4 class="mb-2">📌 Mensaje Especial para Bryan Sanchez</h4>
-    <p>Comparte un mensaje que inspire, motive o saque una sonrisa en este día especial. ¡Celebremos juntos! 🎂🎈🎉</p>
-  </div>
-
-  <div id="formCard" class="card mb-4 shadow-sm">
-    <div class="card-body">
-      <h5 class="card-title">Escribe tu mensaje ✍️</h5>
-      <form id="formMensaje" autocomplete="off">
-        <div class="mb-3">
-          <label class="form-label">Tu nombre</label>
-          <input id="nombre" type="text" class="form-control" required />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Tu mensaje</label>
-          <textarea id="mensaje" class="form-control" rows="4" required></textarea>
-        </div>
-        <button id="btnGuardar" class="btn btn-success" type="submit">
-          <span class="spinner-border spinner-border-sm me-2 d-none" id="spinnerGuardar" role="status" aria-hidden="true"></span>
-          Guardar mensaje
-        </button>
-        <div id="estadoGuardar" class="mt-2 small text-success" style="display:none;"></div>
-      </form>
+    <div id="form">
+        <input type="text" id="name" placeholder="Tu nombre">
+        <input type="text" id="message" placeholder="Escribe tu mensaje">
+        <button onclick="sendMessage()">Enviar 🎈</button>
     </div>
-  </div>
 
-  <h4 class="mb-3 subtitulo-brillante mt-4">📬 Mensajes enviados</h4>
-  <div id="listaMensajes" class="row g-3"></div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-  <div class="firma-final">
-    💖 Gracias por celebrar con nosotros. ¡Que vengan muchos más cumpleaños felices! 🎉
-  </div>
-</div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfcAF7rUbf651MW579u92rYVmvdLt--Ow",
+            authDomain: "cumple1-5eeeb.firebaseapp.com",
+            projectId: "cumple1-5eeeb",
+            storageBucket: "cumple1-5eeeb.firebasestorage.app",
+            messagingSenderId: "722404129554",
+            appId: "1:722404129554:web:7b741400b2637c177651cb",
+            databaseURL: "https://cumple1-5eeeb-default-rtdb.firebaseio.com"
+        };
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        const chatDiv = document.getElementById("chat");
+        const mensajesRef = ref(db, "cumpleanos_mensajes");
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDfcAF7rUbf651MW579u92rYVmvdLt--Ow",
-  authDomain: "cumple1-5eeeb.firebaseapp.com",
-  projectId: "cumple1-5eeeb",
-  storageBucket: "cumple1-5eeeb.appspot.com",
-  messagingSenderId: "722404129554",
-  appId: "1:722404129554:web:7b741400b2637c177651cb"
-};
+        // Escuchar mensajes en tiempo real
+        onChildAdded(mensajesRef, (snapshot) => {
+            const msg = snapshot.val();
+            const div = document.createElement("div");
+            div.classList.add("mensaje");
+            // Colorear según si es tuyo o de otro
+            div.classList.add(msg.name === localStorage.getItem('chatName') ? "mine" : "other");
+            div.innerHTML = `<strong>${msg.name}</strong>: ${msg.text} 🎉`;
+            chatDiv.appendChild(div);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        });
 
-try { firebase.initializeApp(firebaseConfig); } 
-catch(e) { console.error("[Firebase] Error inicializando:", e); }
+        // Enviar mensaje
+        window.sendMessage = function() {
+            const nameInput = document.getElementById("name");
+            const messageInput = document.getElementById("message");
+            const name = nameInput.value.trim();
+            const text = messageInput.value.trim();
+            if (!name || !text) return alert("Escribe tu nombre y mensaje");
 
-const db = firebase.firestore();
-
-function cargarMensajes() {
-  const lista = document.getElementById("listaMensajes");
-  const emojis = ["🎉","🎂","🎈","🥳","🎁","🎊","🍰","🧁","🍾","🥂","🎶","🎵","🎤","🎀","🎇","🎆","✨","🌟","⭐","💐","🌸","🎯","🎨"];
-
-  db.collection("mensajes").orderBy("fecha","desc").onSnapshot(snapshot => {
-    lista.innerHTML = "";
-    snapshot.forEach(doc => {
-      const m = doc.data();
-      const emoji = emojis[Math.floor(Math.random()*emojis.length)];
-      const col = document.createElement("div");
-      col.className = "col-md-4";
-      const card = document.createElement("div");
-      card.className = "card shadow-sm";
-      const body = document.createElement("div");
-      body.className = "card-body";
-      const h5 = document.createElement("h5");
-      h5.className = "card-title"; h5.textContent = `${emoji} ${m.nombre||""}`;
-      const p = document.createElement("p");
-      p.className = "card-text"; p.textContent = m.mensaje||"";
-      body.appendChild(h5); body.appendChild(p);
-      card.appendChild(body); col.appendChild(card);
-      lista.appendChild(col);
-    });
-  }, error => {
-    lista.innerHTML = '<div class="col-12 text-danger">No se pudieron cargar los mensajes. Revisa la consola.</div>';
-  });
-}
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  const form = document.getElementById("formMensaje");
-  const nombreInput = document.getElementById("nombre");
-  const mensajeInput = document.getElementById("mensaje");
-  const btnGuardar = document.getElementById("btnGuardar");
-  const spinner = document.getElementById("spinnerGuardar");
-  const estado = document.getElementById("estadoGuardar");
-
-  form.addEventListener("submit", async e=>{
-    e.preventDefault();
-    if(btnGuardar.disabled) return;
-    const nombre = nombreInput.value.trim();
-    const mensaje = mensajeInput.value.trim();
-    if(!nombre||!mensaje) return;
-    btnGuardar.disabled=true; spinner.classList.remove("d-none"); estado.style.display="none";
-    try{
-      await db.collection("mensajes").add({nombre,mensaje,fecha:firebase.firestore.FieldValue.serverTimestamp()});
-      form.reset(); nombreInput.blur(); mensajeInput.blur();
-      estado.textContent="Mensaje guardado correctamente 🎉"; estado.style.display="block";
-      setTimeout(()=>estado.style.display="none",2500);
-    } catch(err){
-      console.error(err);
-      estado.textContent="Error guardando mensaje. Revisa la consola."; estado.style.display="block";
-    } finally { spinner.classList.add("d-none"); btnGuardar.disabled=false; }
-  });
-
-  // Cargar mensajes al iniciar
-  cargarMensajes();
-
-  // Imprimir con retraso para asegurar renderizado
-  document.getElementById('btnImprimir').addEventListener('click', ()=>{
-    setTimeout(()=>window.print(),200);
-  });
-});
-</script>
+            localStorage.setItem('chatName', name); // recordar quién eres
+            push(mensajesRef, { name, text });
+            messageInput.value = "";
+        }
+    </script>
 </body>
 </html>
