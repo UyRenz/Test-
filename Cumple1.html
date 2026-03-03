@@ -55,12 +55,9 @@
 </head>
 
 <body class="p-0">
-  
-
 <header class="site-header">
   <div class="container header-content">
     <a href="index.html" class="brand" aria-label="Ir al inicio">
-      <!-- Icono de casa (SVG) -->
       <svg class="brand-logo" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="currentColor"
           d="M12 3l9 8-1.5 1.7L18 11.5V20a2 2 0 0 1-2 2h-3v-5H11v5H8a2 2 0 0 1-2-2v-8.5L4.5 12.7 3 11l9-8z"/>
@@ -69,282 +66,187 @@
   </div>
 </header>
 
+<div class="bg-print" aria-hidden="true"></div>
 
-  <!-- Fondo impresión -->
-  <div class="bg-print" aria-hidden="true"></div>
+<div class="container py-4">
+  <div class="portada-impresion">
+    <h1>🎉 Recuerdos del Equipo 🎂</h1>
+    <p>A continuación encontrarás los mensajes de tus compañeros, escritos para celebrar tu cumpleaños con buenos deseos, motivación y alegría. Son palabras que reflejan el aprecio y el compañerismo de quienes forman parte de tu equipo.</p>
+  </div>
 
-  <div class="container py-4">
-    <div class="portada-impresion">
-      <h1>🎉 Recuerdos del Equipo 🎂</h1>
-      <p>A continuación encontrarás los mensajes de tus compañeros, escritos para celebrar tu cumpleaños con buenos deseos, motivación y alegría. Son palabras que reflejan el aprecio y el compañerismo de quienes forman parte de tu equipo..</p>
-    </div>
+  <div class="encabezado-impresion">
+    <h1>📬 Mensajes enviados</h1>
+  </div>
 
-    <div class="encabezado-impresion">
-      <h1>📬 Mensajes enviados</h1>
-    </div>
+  <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
 
-    <div id="tab-borrar">➤ <span>Borrar mensajes</span></div>
+  <div class="text-center">
+    <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
+  </div>
 
-    <div class="text-center">
-      <h2 class="mb-4 titulo-brillante">🎂 Un Espacio para Compartir 🎉</h2>
-    </div>
+  <div class="text-center mb-4">
+    <button id="btnImprimir" class="btn btn-primary" onclick="window.print()">🖨️ Imprimir mensajes</button>
+  </div>
 
-    <div class="text-center mb-4">
-      <button id="btnImprimir" class="btn btn-primary" onclick="window.print()">🖨️ Imprimir mensajes</button>
-    </div>
+  <div class="alert alert-danger p-4 shadow-sm" style="border-left: 6px solid #d9534f;">
+    <h4 class="mb-2">📌 Mensaje Especial para Bryan Sanchez</h4>
+    <p>Comparte un mensaje que inspire, motive o saque una sonrisa en este día especial. ¡Celebremos juntos! 🎂🎈🎉</p>
+  </div>
 
-    <div class="alert alert-danger p-4 shadow-sm" style="border-left: 6px solid #d9534f;">
-      <h4 class="mb-2">📌 Mensaje Especial para Bryan Sanchez</h4>
-      <p>Comparte un mensaje que inspire, motive o saque una sonrisa en este día especial. ¡Celebremos juntos! 🎂🎈🎉</p>
-    </div>
-
-    <!-- Formulario -->
-    <div id="formCard" class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Escribe tu mensaje ✍️</h5>
-        <form id="formMensaje" autocomplete="off">
-          <div class="mb-3">
-            <label class="form-label">Tu nombre</label>
-            <input id="nombre" type="text" class="form-control" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Tu mensaje</label>
-            <textarea id="mensaje" class="form-control" rows="4" required></textarea>
-          </div>
-          <button id="btnGuardar" class="btn btn-success" type="submit">
-            <span class="spinner-border spinner-border-sm me-2 d-none" id="spinnerGuardar" role="status" aria-hidden="true"></span>
-            Guardar mensaje
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <h4 class="mb-3 subtitulo-brillante mt-4">📬 Mensajes enviados</h4>
-    <div id="listaMensajes" class="row g-3"></div>
-
-    <div class="firma-final">
-      💖 Gracias por celebrar con nosotros. ¡Que vengan muchos más cumpleaños felices! 🎉
+  <div id="formCard" class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Escribe tu mensaje ✍️</h5>
+      <form id="formMensaje" autocomplete="off">
+        <div class="mb-3">
+          <label class="form-label">Tu nombre</label>
+          <input id="nombre" type="text" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tu mensaje</label>
+          <textarea id="mensaje" class="form-control" rows="4" required></textarea>
+        </div>
+        <button id="btnGuardar" class="btn btn-success" type="submit">
+          <span class="spinner-border spinner-border-sm me-2 d-none" id="spinnerGuardar" role="status" aria-hidden="true"></span>
+          Guardar mensaje
+        </button>
+        <div id="estadoGuardar" class="mt-2 small text-success" style="display:none;"></div>
+      </form>
     </div>
   </div>
 
-  <!-- Modal borrar -->
-  <div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="modalBorrarLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalBorrarLabel">Borrar todos los mensajes</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="passwordBorrar" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="passwordBorrar" placeholder="Ingresa la contraseña">
-          </div>
-          <div class="alert alert-warning">
-            <strong>Atención:</strong> Esta acción <u>no se puede deshacer</u>. Se eliminarán <strong>todos</strong> los mensajes.
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="confirmacionBorrar">
-            <label class="form-check-label" for="confirmacionBorrar">Confirmo que deseo borrar todos los mensajes.</label>
-          </div>
-          <div id="estadoBorrado" class="mt-3 small text-muted" style="display:none;"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" id="btnBorrarNow" class="btn btn-danger">Borrar</button>
-        </div>
-      </div>
-    </div>
+  <h4 class="mb-3 subtitulo-brillante mt-4">📬 Mensajes enviados</h4>
+  <div id="listaMensajes" class="row g-3"></div>
+
+  <div class="firma-final">
+    💖 Gracias por celebrar con nosotros. ¡Que vengan muchos más cumpleaños felices! 🎉
   </div>
+</div>
 
-  <!-- Firebase SDKs (compat) -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <!-- Bootstrap JS (modal) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- App -->
-  <script>
-    // ===== Firebase =====
-    const firebaseConfig = {
-      apiKey: "AIzaSyDfcAF7rUbf651MW579u92rYVmvdLt--Ow",
-      authDomain: "cumple1-5eeeb.firebaseapp.com",
-      projectId: "cumple1-5eeeb",
-      storageBucket: "cumple1-5eeeb.appspot.com", // ✅
-      messagingSenderId: "722404129554",
-      appId: "1:722404129554:web:7b741400b2637c177651cb"
-    };
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDfcAF7rUbf651MW579u92rYVmvdLt--Ow",
+  authDomain: "cumple1-5eeeb.firebaseapp.com",
+  projectId: "cumple1-5eeeb",
+  storageBucket: "cumple1-5eeeb.appspot.com",
+  messagingSenderId: "722404129554",
+  appId: "1:722404129554:web:7b741400b2637c177651cb"
+};
 
-    // Inicializar Firebase
-    try {
-      firebase.initializeApp(firebaseConfig);
-      console.log("[Firebase] App inicializada.");
-    } catch (e) {
-      console.error("[Firebase] Error inicializando la app:", e);
-    }
+try {
+  firebase.initializeApp(firebaseConfig);
+  console.log("[Firebase] App inicializada.");
+} catch (e) {
+  console.error("[Firebase] Error inicializando la app:", e);
+}
 
-    const db = firebase.firestore();
+const db = firebase.firestore();
 
-    // ===== Listado en tiempo real =====
-    function cargarMensajes() {
-      const lista = document.getElementById("listaMensajes");
-      const emojis = 
-[
-  "🎉", "🎂", "🎈", "🥳", "🎁", "🎊", "🍰", "🧁", "🍾", "🥂", "🎶", "🎵", "🎤", "🎀", "🎇", "🎆", "✨", "🌟", "⭐", "💐", "🌸", "🎯", "🎨",
-  "🎂", "🎉", "🥳", "🎈", "🎁", "🍰", "🧁", "🎊", "🎀", "🎶", "🎵", "🥂", "🍾", "✨", "🌟", "💝", "💖", "😊", "😄", "😁", "🥰",
-  "🎉", "🎂", "🎈", "🎁", "🎊", "🍰", "🧁"
-];
+// ===== Listado en tiempo real =====
+function cargarMensajes() {
+  const lista = document.getElementById("listaMensajes");
+  const emojis = [
+    "🎉", "🎂", "🎈", "🥳", "🎁", "🎊", "🍰", "🧁", "🍾", "🥂", "🎶", "🎵", "🎤", "🎀", "🎇", "🎆", "✨", "🌟", "⭐", "💐", "🌸", "🎯", "🎨"
+  ];
 
+  console.log("[Firestore] Suscribiendo a /mensajes (orderBy fecha desc)...");
 
-      console.log("[Firestore] Suscribiendo a /mensajes (orderBy fecha desc)...");
-      db.collection("mensajes").orderBy("fecha", "desc").onSnapshot(
-        (snapshot) => {
-          console.log("[Firestore] Snapshot recibido. Docs:", snapshot.size);
-          lista.innerHTML = "";
-          snapshot.forEach(doc => {
-            const m = doc.data();
-            const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
+  // Evitar error si algún doc no tiene fecha
+  db.collection("mensajes")
+    .orderBy("fecha", "desc")
+    .onSnapshot(snapshot => {
+      console.log("[Firestore] Snapshot recibido. Docs:", snapshot.size);
+      lista.innerHTML = "";
+      snapshot.forEach(doc => {
+        const m = doc.data();
+        const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
 
-            const col = document.createElement("div");
-            col.className = "col-md-4";
+        const col = document.createElement("div");
+        col.className = "col-md-4";
 
-            const card = document.createElement("div");
-            card.className = "card shadow-sm";
+        const card = document.createElement("div");
+        card.className = "card shadow-sm";
 
-            const body = document.createElement("div");
-            body.className = "card-body";
+        const body = document.createElement("div");
+        body.className = "card-body";
 
-            const h5 = document.createElement("h5");
-            h5.className = "card-title";
-            h5.textContent = `${emojiAleatorio} ${m.nombre || ""}`;
+        const h5 = document.createElement("h5");
+        h5.className = "card-title";
+        h5.textContent = `${emojiAleatorio} ${m.nombre || ""}`;
 
-            const p = document.createElement("p");
-            p.className = "card-text";
-            p.textContent = m.mensaje || "";
+        const p = document.createElement("p");
+        p.className = "card-text";
+        p.textContent = m.mensaje || "";
 
-            body.appendChild(h5);
-            body.appendChild(p);
-            card.appendChild(body);
-            col.appendChild(card);
-            lista.appendChild(col);
-          });
-        },
-        (error) => {
-          console.error("[Firestore] Error en onSnapshot:", error);
-          alert("No se pudo suscribir a tiempo real. Revisa las reglas o la consola.");
-        }
-      );
-    }
-
-    // ===== Guardar mensaje: usa timestamp del servidor =====
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("formMensaje");
-      const nombreInput = document.getElementById("nombre");
-      const mensajeInput = document.getElementById("mensaje");
-      const btnGuardar = document.getElementById("btnGuardar");
-      const spinnerGuardar = document.getElementById("spinnerGuardar");
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        if (btnGuardar.disabled) return;
-
-        const nombre = nombreInput.value.trim();
-        const mensaje = mensajeInput.value.trim();
-        if (!nombre || !mensaje) return;
-
-        btnGuardar.disabled = true;
-        spinnerGuardar.classList.remove("d-none");
-
-        try {
-          console.log("[Firestore] Agregando documento a /mensajes...");
-          await db.collection("mensajes").add({
-            nombre,
-            mensaje,
-            fecha: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          console.log("[Firestore] Documento agregado correctamente.");
-
-          form.reset();
-          nombreInput.blur();
-          mensajeInput.blur();
-
-          const ok = document.createElement("div");
-          ok.className = "alert alert-success mt-3";
-          ok.textContent = "Mensaje guardado correctamente 🎉";
-          document.getElementById("formCard").appendChild(ok);
-          setTimeout(() => ok.remove(), 2500);
-        } catch (err) {
-          console.error("[Firestore] Error guardando mensaje:", err);
-          alert("Ocurrió un error guardando el mensaje (ver consola).");
-        } finally {
-          spinnerGuardar.classList.add("d-none");
-          btnGuardar.disabled = false;
-        }
+        body.appendChild(h5);
+        body.appendChild(p);
+        card.appendChild(body);
+        col.appendChild(card);
+        lista.appendChild(col);
       });
-
-      // Arranque: cargar lista
-      cargarMensajes();
+    }, error => {
+      console.error("[Firestore] Error en onSnapshot:", error);
+      const lista = document.getElementById("listaMensajes");
+      lista.innerHTML = '<div class="col-12 text-danger">No se pudieron cargar los mensajes. Revisa la consola.</div>';
     });
+}
 
-    // ===== Borrar todos los mensajes (solo pruebas) =====
-    const PASSWORD_BORRADO = "997R";
+// ===== Guardar mensaje =====
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formMensaje");
+  const nombreInput = document.getElementById("nombre");
+  const mensajeInput = document.getElementById("mensaje");
+  const btnGuardar = document.getElementById("btnGuardar");
+  const spinnerGuardar = document.getElementById("spinnerGuardar");
+  const estadoGuardar = document.getElementById("estadoGuardar");
 
-    async function borrarTodosLosMensajes() {
-      const estado = document.getElementById('estadoBorrado');
-      estado.style.display = 'block';
-      estado.textContent = 'Borrando mensajes...';
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (btnGuardar.disabled) return;
 
-      try {
-        const snapshot = await db.collection('mensajes').get();
-        if (snapshot.empty) { estado.textContent = 'No hay mensajes para borrar.'; return; }
+    const nombre = nombreInput.value.trim();
+    const mensaje = mensajeInput.value.trim();
+    if (!nombre || !mensaje) return;
 
-        let batch = db.batch();
-        let count = 0;
-        let total = snapshot.size;
+    btnGuardar.disabled = true;
+    spinnerGuardar.classList.remove("d-none");
+    estadoGuardar.style.display = "none";
 
-        snapshot.forEach(doc => {
-          batch.delete(doc.ref);
-          count++;
-          if (count >= 450) {
-            batch.commit();
-            batch = db.batch();
-            count = 0;
-          }
-        });
+    try {
+      console.log("[Firestore] Agregando documento a /mensajes...");
+      await db.collection("mensajes").add({
+        nombre,
+        mensaje,
+        fecha: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log("[Firestore] Documento agregado correctamente.");
 
-        await batch.commit();
-        estado.textContent = `Listo. Se borraron ${total} mensajes.`;
-      } catch (err) {
-        console.error('[Firestore] Error borrando mensajes:', err);
-        if (err && err.code === 'permission-denied') {
-          estado.innerHTML = 'Permiso denegado al borrar.<br><small>Revisa las reglas de Firestore o habilita <code>delete</code> temporalmente para pruebas.</small>';
-        } else {
-          estado.textContent = 'Ocurrió un error al borrar los mensajes.';
-        }
-      }
+      form.reset();
+      nombreInput.blur();
+      mensajeInput.blur();
+
+      estadoGuardar.textContent = "Mensaje guardado correctamente 🎉";
+      estadoGuardar.style.display = "block";
+      setTimeout(() => { estadoGuardar.style.display = "none"; }, 2500);
+
+    } catch (err) {
+      console.error("[Firestore] Error guardando mensaje:", err);
+      estadoGuardar.textContent = "Error guardando mensaje. Revisa la consola.";
+      estadoGuardar.style.display = "block";
+    } finally {
+      spinnerGuardar.classList.add("d-none");
+      btnGuardar.disabled = false;
     }
+  });
 
-    const modalBorrar = new bootstrap.Modal(document.getElementById('modalBorrar'));
-    document.getElementById('tab-borrar').addEventListener('click', () => {
-      document.getElementById('passwordBorrar').value = '';
-      document.getElementById('confirmacionBorrar').checked = false;
-      const estado = document.getElementById('estadoBorrado');
-      estado.style.display = 'none';
-      estado.textContent = '';
-      modalBorrar.show();
-    });
-
-    document.getElementById('btnBorrarNow').addEventListener('click', async () => {
-      const pass = document.getElementById('passwordBorrar').value;
-      const confirmado = document.getElementById('confirmacionBorrar').checked;
-
-      if (!pass) { alert('Por favor ingresa la contraseña.'); return; }
-      if (pass !== PASSWORD_BORRADO) { alert('Contraseña incorrecta.'); return; }
-      if (!confirmado) { alert('Debes confirmar que deseas borrar todos los mensajes.'); return; }
-
-      await borrarTodosLosMensajes();
-    });
-  </script>
+  cargarMensajes();
+});
+</script>
 </body>
 </html>
