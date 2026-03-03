@@ -97,10 +97,45 @@
     #tab-borrar span { display: none; margin-left: 6px; }
     #tab-borrar:hover span { display: inline; }
 
-    /* NUEVO: Ocultar botón de borrar en impresión */
+    /* ===== IMPRESIÓN ===== */
     @media print {
+      body {
+        background: none !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding-top: 0 !important;
+      }
+
+      .site-header {
+        position: static !important;
+        background: #fff !important;
+        color: #000 !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 10px 0 !important;
+      }
+
       #tab-borrar {
-        display: none;
+        display: none !important;
+      }
+
+      .card {
+        backdrop-filter: none !important;
+        background-color: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        transition: none !important;
+      }
+
+      .card:hover {
+        transform: none !important;
+      }
+
+      .titulo-brillante,
+      .subtitulo-brillante {
+        background: transparent !important;
+        box-shadow: none !important;
       }
     }
   </style>
